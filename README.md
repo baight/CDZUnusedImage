@@ -1,8 +1,7 @@
 CDZUnusedImage
 ==============
 
-查找工程中，未使用到的图片或其它资源
-
+查找工程中，未使用到的图片或其它资源</br>
 To find unused image or other resource in your project
 
 该脚本 基于 python3，需要安装 python3运行环境

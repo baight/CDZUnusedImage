@@ -37,7 +37,7 @@ the suffixs of your code (to determine whether it has been used)
 
 codeFileSuffix = (".h", ".m", ".xib", ".storyboard", ".plist", ".json")
 
--
+----------
 
 需要忽略的图片文件，大小写敏感
 

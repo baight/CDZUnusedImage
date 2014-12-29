@@ -28,13 +28,17 @@ then, it will output the unused image path
 // the suffixs of your images or other resource
 
 imageSuffix = (".png", ".jpg", ".PNG", ".JPG")
- ----------
+
+----------
+
 // 用于判断图片是否使用过的 代码文件后缀名，大小写敏感
 
 // the suffixs of your code (to determine whether it has been used)
 
 codeFileSuffix = (".h", ".m", ".xib", ".storyboard", ".plist", ".json")
+
 ----------
+
 //需要忽略的图片文件，大小写敏感
 
 //the image files to ignore

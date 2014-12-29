@@ -12,7 +12,7 @@ To find unused image or other resource in your project
 
 把该脚本 放于 xcode工程 根目录，命令行运行之（$> python3 /目录/CDZUnusedImage.py）即可，
 
-输出 未使用的 图片名称
+输出 未使用的 图片路径
 
 
 it is based on python3, you should install python3 first

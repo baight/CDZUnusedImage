@@ -48,4 +48,5 @@ ignoreFile = set(("icon120.png", "icon29.png"))
 警告 Warning
 ==============
 该脚本存在误报的可能，在删除图片资源前，你需要再次确认
+
 there exists possibility that it work out with some wrong results, you are supposed to confirm it again 

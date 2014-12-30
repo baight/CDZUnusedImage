@@ -1,9 +1,9 @@
 CDZUnusedImage
 ==============
 
-python3 script to search an project for unused images or other resource
-
 查找工程中，未使用到的图片或其它资源 的 python3脚本
+
+python3 script to search an project for unused images or other resource
 
 使用 Use
 ==============

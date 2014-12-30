@@ -45,7 +45,7 @@ codeFileSuffix = (".h", ".m", ".xib", ".storyboard", ".plist", ".json")
 
 ignoreFile = set(("icon120.png", "icon29.png"))
 
-警告 Warning
+注意 Notes
 ==============
 该脚本存在误报的可能，在删除图片资源前，你需要再次确认
 

@@ -1,9 +1,9 @@
 CDZUnusedImage
 ==============
 
-查找工程中，未使用到的图片或其它资源 的 python3脚本
+查找工程中，可能未使用到的图片或其它资源 的 python3脚本
 
-python3 script to search an project for unused images or other resource
+python3 script to search an project for images or other resource that may be unused
 
 使用 Use
 ==============
@@ -45,3 +45,7 @@ codeFileSuffix = (".h", ".m", ".xib", ".storyboard", ".plist", ".json")
 
 ignoreFile = set(("icon120.png", "icon29.png"))
 
+警告 Warning
+==============
+该脚本存在误报的可能，在删除图片资源前，你需要再次确认
+there exists possibility that it work out with some wrong results, you are supposed to confirm it again 

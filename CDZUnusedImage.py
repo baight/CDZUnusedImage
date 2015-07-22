@@ -5,7 +5,7 @@
 # 输出 未使用的 图片名称
 
 # 脚本 视 image.png impage@2x.png image@3x.png 为同一张图片，只会查找一次
-# 脚本 会忽略 .bundle 目录下的 图片文件
+# 脚本 会忽略 .bundle .xcassets 目录下的 图片文件
 # 2014-12-26
 
 
@@ -42,7 +42,7 @@ def FindFilesOfSuffix(dir, suffix):
     resultList = []
     isSufList = (isinstance(suffix, list) or isinstance(suffix, tuple) or isinstance(suffix, set))
     for dirpath, dirnames, filenames in os.walk(dir):
-        if( ".bundle" in dirpath):
+        if( ".bundle" in dirpath or ".xcassets" in dirpath):
             continue
         for filename in filenames:
             suf = os.path.splitext(filename)[1]

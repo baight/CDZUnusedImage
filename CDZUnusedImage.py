@@ -108,7 +108,11 @@ index = 1;
 for image in imageList:
     isUse = False
     for filePath in fileList:
-        imageT = '"' + os.path.splitext(image)[0] + '"'
+        suf = os.path.splitext(filePath)[1]
+        if (suf == ".plist"):
+            imageT = os.path.splitext(image)[0]
+        else:
+            imageT = '"' + os.path.splitext(image)[0] + '"'
         if IsFileContainString(filePath, image, imageT):
             isUse = True
             break

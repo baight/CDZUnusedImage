@@ -21,15 +21,14 @@ put it in the root directory of your project, and just run it ($> python3 /your 
 
 then, it will output the unused image path 
 
+原理 Principle
+==============
+脚本 寻找所有 xxx.imageset 文件夹，获得 xxx字符串
+查找 "xxx" 字符串，是否在 .h .m .xib .storyboard 文件中 出现过
+出现过，则认为该图片使用过，反之认为没有使用过
+
 配置 Config
 ==============
-// 要查找的 图片(或其它资源)文件后缀名，大小写敏感
-
-// the suffixs of your images or other resource
-
-imageSuffix = (".png", ".jpg", ".PNG", ".JPG")
-
-----------
 
 // 用于判断图片是否使用过的 代码文件后缀名，大小写敏感
 
@@ -43,7 +42,7 @@ codeFileSuffix = (".h", ".m", ".xib", ".storyboard", ".plist", ".json")
 
 // the image files to ignore
 
-ignoreFile = set(("icon120.png", "icon29.png"))
+ignoreFile = set(("icon120", "icon29"))
 
 注意 Notes
 ==============

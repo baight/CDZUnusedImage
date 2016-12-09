@@ -9,8 +9,9 @@
 # 出现过，则认为该图片使用过，反之认为没有使用过
 # 2016-06-16
 
-
 import sys,os
+from mylib import *
+
 # 跳转到当前目录
 curDir = sys.path[0];
 os.chdir(curDir)
@@ -19,11 +20,11 @@ os.chdir(curDir)
 
 # 用于判断图片是否使用过的 代码文件后缀名，大小写敏感
 # the suffixs of your code
-codeFileSuffix = (".h", ".m", ".xib")
+codeFileSuffixs = (".h", ".m", ".xib")
 
 # 需要忽略的图片文件，大小写敏感
 # the image names to ignore
-ignoreFile = set(("refresh0", "refresh1", "refresh2", "refresh3",
+ignoreFiles = set(("refresh0", "refresh1", "refresh2", "refresh3",
     "refresh4", "refresh5", "refresh6", "refresh7", "refresh8",
     "refresh_arrow0", "refresh_arrow1", "refresh_arrow2", "refresh_arrow3",
     "refresh_arrow4", "refresh_arrow5", "refresh_arrow6",))
@@ -33,90 +34,18 @@ ignoreFile = set(("refresh0", "refresh1", "refresh2", "refresh3",
 ignoreDir = ("app.xcassets",
             ".bundle",
             ".imageset")
-
-
 #--------------------配 置--------------------<
-
-
-
-#--------------------函 数-------------------->
-# 寻找rootDir目录下，所有 xxx.imageset 文件夹，获得 xxx字符串，结果以数组形式返回
-def GetImageNameList(rootDir):
-    imageNameList = []
-    for dirpath, dirnames, filenames in os.walk(curDir):
-        isIgnore = False
-        for ignDir in ignoreDir:
-            if ignDir in dirpath:
-                isIgnore = True
-                break
-
-        if isIgnore:
-            continue
-
-        for dirname in dirnames:
-            components = os.path.splitext(dirname)
-            imagename = components[0]
-            suf = components[1]
-            if suf == ".imageset" and imagename not in ignoreFile:
-                imageNameList.append(imagename)
-    return imageNameList
-
-
-# 获取指定后缀名的文件列表, 忽略 ignoreDir 中的目录
-def GetFileListOfSuffix(dir, suffix):
-    resultList = []
-    isSufList = (isinstance(suffix, list) or isinstance(suffix, tuple) or isinstance(suffix, set))
-    for dirpath, dirnames, filenames in os.walk(dir):
-        isIgnore = False
-        for ignDir in ignoreDir:
-            if ignDir in dirpath:
-                isIgnore = True
-                break
-
-        if isIgnore:
-            continue
-
-        for filename in filenames:
-            suf = os.path.splitext(filename)[1]
-            if(isSufList):
-                for s in suffix:
-                    if(suf == s):
-                        resultList.append(os.path.join(dirpath, filename))
-                        break
-            else:
-                if(suf == suffix):
-                    resultList.append(os.path.join(dirpath, filename))
-    return resultList
-
-# 查找指定文件中，是否包含 textSet 的文本，返回包含的text集合
-def IsFileContainTextSet(filePath, textSet):
-    result = set()
-    f = open(filePath)
-    try:
-        content = f.read()
-        for text in textSet:
-            textflag = '"' + text + '"'
-            if textflag in content:
-                result.add(text)
-    except Exception as e:
-        #print("--> 读取文件 %s 发生异常" % (filePath))
-        pass
-    f.close()
-    return result
-
-#--------------------函 数--------------------<
-
 
 
 #--------------------工 作-------------------->
 
 print ("--> 初始化...")
 # 寻找所有图片名称
-imageNameList = GetImageNameList(curDir)
+imageNameList = GetImageNameListInDirectory(curDir, ignoreFiles=ignoreFiles)
 print("--> 总共查找到 %d 张图片" % (len(imageNameList)))
 
 # 获取源文件列表
-sourceFilePathList = GetFileListOfSuffix(curDir, codeFileSuffix)
+sourceFilePathList = GetFileListOfSuffix(curDir, codeFileSuffixs)
 print("--> 总共查找到 %d 个源文件" % (len(sourceFilePathList)))
 
 

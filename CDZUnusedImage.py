@@ -17,10 +17,9 @@ curDir = sys.path[0];
 os.chdir(curDir)
 
 #--------------------配 置-------------------->
-
 # 用于判断图片是否使用过的 代码文件后缀名，大小写敏感
 # the suffixs of your code
-codeFileSuffixs = (".h", ".m", ".xib")
+codeFileSuffixs = (".h", ".m", ".xib", ".storyboard")
 
 # 需要忽略的图片文件，大小写敏感
 # the image names to ignore
@@ -31,23 +30,21 @@ ignoreFiles = set(("refresh0", "refresh1", "refresh2", "refresh3",
 
 # 需要忽略的文件夹
 # the dir names to ignore
-ignoreDir = ("app.xcassets",
+ignoreDirs = ("app.xcassets",
             ".bundle",
             ".imageset")
 #--------------------配 置--------------------<
 
 
 #--------------------工 作-------------------->
-
 print ("--> 初始化...")
 # 寻找所有图片名称
-imageNameList = GetImageNameListInDirectory(curDir, ignoreFiles=ignoreFiles)
+imageNameList = GetImageNameListInDirectory(curDir, ignoreDirs=ignoreDirs, ignoreFiles=ignoreFiles)
 print("--> 总共查找到 %d 张图片" % (len(imageNameList)))
 
 # 获取源文件列表
 sourceFilePathList = GetFileListOfSuffix(curDir, codeFileSuffixs)
 print("--> 总共查找到 %d 个源文件" % (len(sourceFilePathList)))
-
 
 print ("--> 正在筛选未使用过的图片...")
 unusedImageSet = set(imageNameList)

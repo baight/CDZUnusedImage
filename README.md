@@ -34,7 +34,7 @@ then, it will output the unused image path
 
 // the suffixs of your code (to determine whether it has been used)
 
-codeFileSuffix = (".h", ".m", ".xib", ".storyboard", ".plist", ".json")
+codeFileSuffixs = (".h", ".m", ".xib", ".storyboard", ".plist", ".json")
 
 ----------
 
@@ -42,7 +42,7 @@ codeFileSuffix = (".h", ".m", ".xib", ".storyboard", ".plist", ".json")
 
 // the image files to ignore
 
-ignoreFile = set(("icon120", "icon29"))
+ignoreFiles = set(("icon120", "icon29"))
 
 注意 Notes
 ==============

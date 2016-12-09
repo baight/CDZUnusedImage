@@ -41,21 +41,21 @@ def GetFileListOfSuffix(dir, suffixs=[], ignoreDirs=[]) -> list:
                 resultList.append(os.path.join(dirpath, filename))
     return resultList
 
-# 查找指定文件中，是否包含 textSet 的文本，返回包含的text集合
-def IsFileContainTextSet(filePath, textSet):
-    result = set()
+# 查找指定文件中，是否包含 textSet 里边的文本，返回包含的text集合
+def IsFileContainTextSet(filePath, textSet) -> set:
+    usedSet = set()
     f = open(filePath)
     try:
         content = f.read()
         for text in textSet:
             textflag = '"' + text + '"'
             if textflag in content:
-                result.add(text)
+                usedSet.add(text)
     except Exception as e:
         #print("--> 读取文件 %s 发生异常" % (filePath))
         pass
     f.close()
-    return result
+    return usedSet
 
 
 # created by baight 303730915@qq.com

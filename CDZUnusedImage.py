@@ -11,35 +11,38 @@
 
 import sys,os
 from mylib import *
+from color_print import *
 
 # 跳转到当前目录
 curDir = sys.path[0];
 os.chdir(curDir)
 
 #--------------------配 置-------------------->
+# 图片文件后缀名
+imageFileSuffixs = (".png", ".PNG", ".jpg", "JPG", '.jpeg', '.JPEG')
+
 # 用于判断图片是否使用过的 代码文件后缀名，大小写敏感
 # the suffixs of your code
 codeFileSuffixs = (".h", ".m", ".xib", ".storyboard")
 
 # 需要忽略的图片文件，大小写敏感
 # the image names to ignore
-ignoreFiles = set(("refresh0", "refresh1", "refresh2", "refresh3",
-    "refresh4", "refresh5", "refresh6", "refresh7", "refresh8",
-    "refresh_arrow0", "refresh_arrow1", "refresh_arrow2", "refresh_arrow3",
-    "refresh_arrow4", "refresh_arrow5", "refresh_arrow6",))
+ignoreFiles = set(("ignorePictur0", "ignorePictur1"))
 
 # 需要忽略的文件夹
 # the dir names to ignore
-ignoreDirs = ("app.xcassets",
-            ".bundle",
-            ".imageset")
+ignoreDirs = ("app.xcassets", ".bundle", "Example")
 #--------------------配 置--------------------<
 
 
 #--------------------工 作-------------------->
 print ("--> 初始化...")
 # 寻找所有图片名称
-imageNameList = GetImageNameListInDirectory(curDir, ignoreDirs=ignoreDirs, ignoreFiles=ignoreFiles)
+xcimageNameList = GetXcassetsImageNameListInDirectory(curDir, ignoreDirs=ignoreDirs, ignoreFiles=ignoreFiles)
+
+notXcimageNameList = GetNotXcassetsImageNameListInDirectory(curDir, ignoreDirs=ignoreDirs, ignoreFiles=ignoreFiles,
+                                                            imageFileSuffixs=imageFileSuffixs)
+imageNameList = xcimageNameList + notXcimageNameList
 print("--> 总共查找到 %d 张图片" % (len(imageNameList)))
 
 # 获取源文件列表
@@ -54,7 +57,11 @@ for filePath in sourceFilePathList:
 
 index = 0
 for unusedImage in unusedImageSet:
-    print(str(index+1) + "-> " + "\033[36m" + unusedImage + "\033[0m is not used")
+    color_text = ColorText()
+    color_text.appendColorText(str(index+1) + "-> ")
+    color_text.appendColorText(unusedImage, TextColor.Cyan)
+    color_text.appendColorText(' is not used')
+    printColorText(color_text)
     index = index + 1
 
 print ("--> 查找结束")

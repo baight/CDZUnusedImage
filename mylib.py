@@ -1,9 +1,14 @@
 import sys,os
 
+xcimageSetSuffix = '.imageset'
+
 # 寻找rootDir目录下，所有 xxx.imageset 文件夹，获得 xxx字符串，结果以数组形式返回
-def GetImageNameListInDirectory(theDir, ignoreDirs=[], ignoreFiles=[]) -> list:
+def GetXcassetsImageNameListInDirectory(theDir, ignoreDirs=[], ignoreFiles=[]) -> list:
     imageNameList = []
     for dirpath, dirnames, filenames in os.walk(theDir):
+        if xcimageSetSuffix in dirpath:
+            continue
+
         isIgnore = False
         for ignDir in ignoreDirs:
             if ignDir in dirpath:
@@ -17,10 +22,36 @@ def GetImageNameListInDirectory(theDir, ignoreDirs=[], ignoreFiles=[]) -> list:
             components = os.path.splitext(dirname)
             imagename = components[0]   # 文件名
             suf = components[1]         # 文件后缀
-            if suf == ".imageset" and imagename not in ignoreFiles:
+            if suf == xcimageSetSuffix and imagename not in ignoreFiles:
                 imageNameList.append(imagename)
     return imageNameList
 
+# 寻找rootDir目录下，所有 不在 xxx.imageset 文件夹 的图片，结果以数组形式返回
+def GetNotXcassetsImageNameListInDirectory(theDir, ignoreDirs=[], ignoreFiles=[],
+                                           imageFileSuffixs = (".png", ".PNG", ".jpg", "JPG", '.jpeg', '.JPEG')) -> list:
+    imageNameList = []
+    for dirpath, dirnames, filenames in os.walk(theDir):
+        if xcimageSetSuffix in dirpath:
+            continue
+
+        isIgnore = False
+        for ignDir in ignoreDirs:
+            if ignDir in dirpath:
+                isIgnore = True
+                break
+
+        if isIgnore:
+            continue
+
+        for filename in filenames:
+            components = os.path.splitext(filename)
+            imagename = components[0]   # 文件名
+            if '@' in imagename:
+                imagename = imagename.split("@")[0]
+            suf = components[1]         # 文件后缀
+            if suf in imageFileSuffixs and imagename not in ignoreFiles:
+                imageNameList.append(imagename)
+    return imageNameList
 
 # 获取指定后缀名的文件列表, 忽略 ignoreDir 中的目录
 def GetFileListOfSuffix(dir, suffixs=[], ignoreDirs=[]) -> list:
@@ -44,6 +75,8 @@ def GetFileListOfSuffix(dir, suffixs=[], ignoreDirs=[]) -> list:
 # 查找指定文件中，是否包含 textSet 里边的文本，返回包含的text集合
 def IsFileContainTextSet(filePath, textSet) -> set:
     usedSet = set()
+    if not os.path.exists(filePath):
+        return usedSet
     f = open(filePath)
     try:
         content = f.read()

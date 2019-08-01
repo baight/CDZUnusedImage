@@ -29,6 +29,10 @@ codeFileSuffixs = (".h", ".m", ".xib", ".storyboard")
 # the image names to ignore
 ignoreFiles = set(("ignorePictur0", "ignorePictur1"))
 
+# 需要忽略的图片名称前缀，大小写敏感。如果 BBS_abc.png，那么它将只会寻找 abc.png，忽略掉了前缀
+# the image names prefix to ignore
+ignorePrefix = ["BBS_",]
+
 # 需要忽略的文件夹
 # the dir names to ignore
 ignoreDirs = ("app.xcassets", ".bundle", "Example")
@@ -38,10 +42,12 @@ ignoreDirs = ("app.xcassets", ".bundle", "Example")
 #--------------------工 作-------------------->
 print ("--> 初始化...")
 # 寻找所有图片名称
-xcimageNameList = GetXcassetsImageNameListInDirectory(curDir, ignoreDirs=ignoreDirs, ignoreFiles=ignoreFiles)
+xcimageNameList = GetXcassetsImageNameListInDirectory(curDir, ignoreDirs=ignoreDirs, ignoreFiles=ignoreFiles,
+                                                      ignorePrefix=ignorePrefix)
 
 notXcimageNameList = GetNotXcassetsImageNameListInDirectory(curDir, ignoreDirs=ignoreDirs, ignoreFiles=ignoreFiles,
-                                                            imageFileSuffixs=imageFileSuffixs)
+                                                            imageFileSuffixs=imageFileSuffixs,
+                                                            ignorePrefix=ignorePrefix)
 imageNameList = xcimageNameList + notXcimageNameList
 print("--> 总共查找到 %d 张图片" % (len(imageNameList)))
 
